@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Skills>
+	<Skill Name="Pilot">
+		<Ability Name="Evasive Maneuvers"
+				 Description="Increased chances of fleeing combat"
+				 Type="Float"
+				 ValuePerLevel="1.3;1.6;1.9">
+			<!-- Attacking first will be a function of this skill, and ship engine/power ratings -->
+			<Ability Name="Initiative"
+			         Description="Increased chance to attack first in combat"
+					 Type="Int"
+					 ValuePerLevel="1;2;3;4">
+			</Ability>
+			<Ability Name="Aerobatics Expert"
+			         Description="Gets a second dodge roll when taking a hit"
+					 Type="Boolean">
+			</Ability>
+		</Ability>
+	</Skill>
+	<Skill Name="Navigation">
+		<Ability Name="Cartographer"
+			     Description="Increases the grid size of the scanning map when travelling"
+				 Type="Int"
+				 ValuePerLevel="1;1;1;1">
+			<Ability Name="Pathfinder"
+			         Description="You get a chance to choose to skip any random event"
+					 Type="Float"
+					 ValuePerLevel="0.25;0.5">
+				<Ability Name="Scout"
+				         Description="You get a chance to choose from random events"
+						 Type="Float"
+						 ValuePerLevel="0.25;0.5">
+				</Ability>
+			</Ability>
+		</Ability>
+	</Skill>
+	<Skill Name="WeaponsExpert">
+		<Ability Name="Weapon Efficiency"
+		         Description="Reduce cooldown for all weapons by 1"
+				 Type="Int"
+				 ValuePerLevel="1;2;3">
+			<Ability Name="Supercharged"
+			         Description="Increased shield damage with all projectile/laser weapons"
+					 Type="Float"
+					 ValuePerLevel="1.15;1.3;1.5">
+			</Ability>
+			<Ability Name="Surgical Strikes"
+			         Description="Increased hit chance with rocket based weapons"
+					 Type="Float"
+					 ValuePerLevel="1.25;1.5;1.75">
+			</Ability>
+		</Ability>
+	</Skill>
+	<!--
+	<Skill Name="Engineering">
+		<Ability>
+			Potential ideas:
+				Increased fuel efficiency when travelling
+				Reduced hull damage? Cheaper hull repairs?
+				Chance to scavenge hull repairs or fuel from fallen enemies/events
+
+		</Ability>
+	</Skill>
+	<Skill Name="Trading">
+		<Ability>
+			Potential ideas:
+				Higher sell prices
+				Lower buy prices
+				See more items in markets
+		</Ability>
+	</Skill>
+	<Skill Name="Shields">
+		<Ability>
+			Potential ideas:
+				Increased shield recharge
+				Increased shield damage absorption
+				Cheaper shield upgrades
+					Should shields need charging?
+		</Ability>
+	</Skill>
+	-->
+	<Skill Name="Scoundrel">
+		<Ability Name="Connected"
+		         Description="You get much better deals buying/selling all illegal goods"
+				 Type="Float"
+				 ValuePerLevel="0.05;0.05;0.1">
+			<Ability Name="Smuggler"
+			         Description="Decreased detection chance at security checkpoints"
+					 Type="Float"
+					 ValuePerLevel="0.6;0.3">
+			</Ability>
+			<Ability Name="Dark Marketeer"
+			         Description="Increased chance of seeing contraband in markets"
+					 Type="Float"
+					 ValuePerLevel="1.25">
+			</Ability>
+		</Ability>
+	</Skill>
+</Skills>
