@@ -23,15 +23,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import arch.interfaces.MapSessionInterface;
-import arch.session.ShipAndCrewCreationSession;
 import arch.sessions.MapSession;
 import arch.view.ConsoleIOHandler;
-import goods.Goods;
 import map.GridPoint;
 import map.gridsquares.GridSquare;
 import one.jp.ssrpg.gui.loaders.Loader;
-import one.jp.ssrpg.gui.utils.ButtonGridDrawer;
 import ship.PlayerShip;
+import one.jp.ssrpg.gui.windows.ShipScreenWindow;
+import one.jp.ssrpg.gui.windows.ShipMapScreen;
 
 import java.util.ArrayList;
 
