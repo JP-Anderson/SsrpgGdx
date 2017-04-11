@@ -27,6 +27,7 @@ import arch.sessions.MapSession;
 import arch.view.ConsoleIOHandler;
 import map.GridPoint;
 import map.gridsquares.GridSquare;
+import one.jp.ssrpg.gui.Styles;
 import one.jp.ssrpg.gui.loaders.Loader;
 import one.jp.ssrpg.gui.utils.ShipScreenMenuBar;
 import ship.PlayerShip;
@@ -51,8 +52,6 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 	ShipScreenWindow shipScreenWindow;
 
 	Stage stage;
-	TextButton.TextButtonStyle textButtonStyle;
-	BitmapFont font;
 
 	float posX;
 	float posY;
@@ -67,12 +66,6 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 	public void create () {
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
-
-		font = new BitmapFont();
-		textButtonStyle = new TextButton.TextButtonStyle();
-		textButtonStyle.font = font;
-		textButtonStyle.fontColor = Color.CYAN;
-		textButtonStyle.checkedFontColor = Color.WHITE;
 
 		createShipScreen();
 
@@ -91,12 +84,8 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 		img = new Texture("hst_carina_ngc3372_0006.jpg");
 		img2 = new Texture("ship_mock2.png");
 
-
 		screen = new Table();
 		stage.addActor(screen);
-
-		Loader.loadSomeStuff();
-
 	}
 
 	private void createShipScreen() {
@@ -132,7 +121,6 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 		pm1.setColor(Color.BLACK);
 		pm1.fill();
 
-
 		screen.setVisible(true);
 		screen.setBackground(new TextureRegionDrawable(new TextureRegion(new Texture(pm1))));
 
@@ -141,19 +129,19 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 
 
 			if (text.equals("MAP")) {
-				TextButton optionButton = new TextButton("Map screen!", textButtonStyle);
+				TextButton optionButton = new TextButton("Map screen!", Styles.menuButtonStyle());
 				screen.add(optionButton);
 			}
 			if (text.equals("SHIP")) {
-				TextButton optionButton = new TextButton("Ship status and overview", textButtonStyle);
+				TextButton optionButton = new TextButton("Ship status and overview", Styles.menuButtonStyle());
 				screen.add(optionButton);
 			}
 			if (text.equals("CREW")) {
-				TextButton optionButton = new TextButton("Crew stats screen!", textButtonStyle);
+				TextButton optionButton = new TextButton("Crew stats screen!", Styles.menuButtonStyle());
 				screen.add(optionButton);
 			}
 			if (text.equals("CARGO")) {
-				TextButton optionButton = new TextButton("Cargo hold", textButtonStyle);
+				TextButton optionButton = new TextButton("Cargo hold", Styles.menuButtonStyle());
 				screen.add(optionButton);
 			}
 			stage.addActor(screen);
