@@ -28,6 +28,7 @@ import arch.view.ConsoleIOHandler;
 import map.GridPoint;
 import map.gridsquares.GridSquare;
 import one.jp.ssrpg.gui.loaders.Loader;
+import one.jp.ssrpg.gui.utils.ShipScreenMenuBar;
 import ship.PlayerShip;
 import one.jp.ssrpg.gui.windows.ShipScreenWindow;
 import one.jp.ssrpg.gui.windows.ShipMapScreen;
@@ -44,9 +45,9 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 
 	GridPoint lastSeenPoint;
 
-	int PADDING = 30;
+	public static int PADDING = 30;
 
-	ArrayList<TextButton> buttonIndexer;
+	ShipScreenMenuBar menuBar;
 	ShipScreenWindow shipScreenWindow;
 
 	Stage stage;
@@ -64,10 +65,6 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 
 	@Override
 	public void create () {
-
-
-		buttonIndexer = new ArrayList<TextButton>();
-
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 
@@ -86,7 +83,8 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 		menuItems.add("CARGO");
 		menuItems.add("MODULES");
 		menuItems.add("LAND");
-		populateMenuBar(menuItems);
+
+		stage.addActor(menuBar.generateMenuBar(menuItems));
 
 		batch = new SpriteBatch();
 		//img = new Texture("space-03.jpg");
@@ -102,16 +100,14 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 	}
 
 	private void createShipScreen() {
-
 		PlayerShip playerShip = new PlayerShip.PlayerShipBuilder(new ConsoleIOHandler(), "TestShip",12).build();
 		sesh = new MapSession();
 		sesh.start(playerShip);
 		ArrayList<ArrayList<GridSquare>> mapSegment = sesh.gridMap();
 		lastSeenPoint = getCentrePointOfArrayListOfArrayListOfGridSquares(mapSegment);
-
 		shipScreenWindow = new ShipScreenWindow(new Skin(Gdx.files.internal("uiskin.json")));
 		stage.addActor(shipScreenWindow);
-
+		menuBar = new ShipScreenMenuBar(shipScreenWindow, this);
 		mapScreen = new ShipMapScreen("Ship Map Screen", sesh);
 		mapScreen.drawMap(mapSegment);
 		stage.addActor(mapScreen);
@@ -124,44 +120,7 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 		return new GridPoint(x/2,y/2);
 	}
 
-	private void populateMenuBar(ArrayList<String> options) {
-		final HorizontalGroup group = new HorizontalGroup();
-		float buttonWidths = 0;
-		int optionIndex = 0;
-		for (String menuOption : options) {
-			final TextButton optionButton = new TextButton(menuOption, textButtonStyle);
-			optionButton.pad(PADDING);
-			group.addActor(optionButton);
-
-			optionButton.addListener(new ClickListener() {
-				public void clicked(InputEvent event, float x, float y) {
-					for (TextButton tb : buttonIndexer) {
-						tb.setChecked(false);
-					}
-					optionButton.setChecked(true);
-					System.out.println(optionButton.getText());
-					//enableScreen(optionButton.getText().toString());
-					shipScreenWindow.changeApplication(optionButton.getText().toString());
-
-				}
-			});
-
-			buttonIndexer.add(optionButton);
-			buttonWidths += optionButton.getWidth();
-		}
-
-		group.setX(WIDTH/2 -(buttonWidths/2) - (PADDING * options.size()));
-		group.setY(15);
-
-
-		System.out.println("group X " + group.getX());
-
-		System.out.println("group Y " + group.getY());
-
-		stage.addActor(group);
-	}
-
-	private void enableScreen(String text) {
+	public void enableScreen(String text) {
 		stage.getActors().get(stage.getActors().indexOf(screen, true)).remove();
 		screen = new Table();
 		screen.setX(40);
@@ -202,11 +161,6 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 
 	}
 
-	//	private void RedrawMenu() {
-//		for (TextButton tb : buttonIndexer) {
-//			tb.
-//		}
-//	}
 	@Override
 	public void render () {
 		Gdx.gl.glClearColor(1, 0, 0, 0.1f);
@@ -215,13 +169,8 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 		batch.draw(img, 0, 0);
 		batch.draw(img2, 0, 0);
 		batch.end();
-//		ArrayList<ArrayList<GridSquare>> sqs = sesh.gridMap();
-//		if (lastSeenPoint != getCentrePointOfArrayListOfArrayListOfGridSquares(sqs)) {
-//			drawMap(sqs);
-//		}
 		if (sesh.changes()) mapScreen.drawMap(sesh.gridMap());
 		stage.draw();
-
 	}
 	
 	@Override
@@ -257,7 +206,7 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 			System.out.println("screenY " + (screenY) + "    HEIGHT " + HEIGHT);
 
 
-			for (TextButton tb : buttonIndexer) {
+			for (TextButton tb : menuBar.getButtons()) {
 				Vector2 buttonVector = getStageLocation(tb);
 				System.out.print(buttonVector);
 				if (isInRange(screenX, (int)(buttonVector.x + tb.getWidth()/2),PADDING))
@@ -300,11 +249,4 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 
 	//endregion
 
-//	private void drawMenuBar() {
-//		Button button1 = new Button();
-//		button1.setVisible(true);
-//		button1.
-//		menuBar.add(button1);
-//		menuBar.setVisible(true);
-//	}
 }
