@@ -113,8 +113,8 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 		shipScreenWindow = new ShipScreenWindow(new Skin(Gdx.files.internal("uiskin.json")));
 		stage.addActor(shipScreenWindow);
 
-		mapScreen = new ShipMapScreen("Ship Map Screen");
-		drawMap(mapSegment);
+		mapScreen = new ShipMapScreen("Ship Map Screen", sesh);
+		mapScreen.drawMap(mapSegment);
 		stage.addActor(mapScreen);
 		mapScreen.setY(150);
 	}
@@ -124,13 +124,6 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 		int x = lists.get(0).size();
 		return new GridPoint(x/2,y/2);
 	}
-
-	private void drawMap(ArrayList<ArrayList<GridSquare>> mapSegment) {
-		ButtonGridDrawer.drawGrid(mapScreen, mapSegment, sesh);
-	}
-
-
-
 
 	private void populateMenuBar(ArrayList<String> options) {
 		final HorizontalGroup group = new HorizontalGroup();
@@ -227,7 +220,7 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 //		if (lastSeenPoint != getCentrePointOfArrayListOfArrayListOfGridSquares(sqs)) {
 //			drawMap(sqs);
 //		}
-		if (sesh.changes()) drawMap(sesh.gridMap());
+		if (sesh.changes()) mapScreen.drawMap(sesh.gridMap());
 		stage.draw();
 
 	}

@@ -8,6 +8,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+import java.util.ArrayList;
+
+import arch.interfaces.MapSessionInterface;
+import map.gridsquares.GridSquare;
+import one.jp.ssrpg.gui.utils.ButtonGridDrawer;
+
 /**
  * Created by Jp on 01/04/2017.
  */
@@ -17,13 +23,20 @@ public class ShipMapScreen extends Window {
     public static final int HEIGHT = 400;
     public static final int WIDTH = 800;
 
-    public ShipMapScreen(String title) {
+    private final MapSessionInterface mapSessionInterface;
+
+    public ShipMapScreen(String title, MapSessionInterface mapSessionInterface) {
         super(title, new Skin(Gdx.files.internal("uiskin.json")));
         Texture mapImage = new Texture("mapscreen2.png");
         setBackground(new TextureRegionDrawable(new TextureRegion(mapImage)));
         setHeight(HEIGHT);
         setWidth(WIDTH);
         getTitleLabel().setVisible(false);
+        this.mapSessionInterface = mapSessionInterface;
+    }
+
+    public void drawMap(ArrayList<ArrayList<GridSquare>> mapSegment) {
+        ButtonGridDrawer.drawGrid(this, mapSegment, mapSessionInterface);
     }
 
 }
