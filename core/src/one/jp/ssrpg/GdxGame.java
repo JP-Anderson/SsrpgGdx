@@ -4,31 +4,20 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import arch.interfaces.MapSessionInterface;
 import arch.sessions.MapSession;
 import arch.view.ConsoleIOHandler;
 import map.GridPoint;
 import map.gridsquares.GridSquare;
-import one.jp.ssrpg.gui.Styles;
-import one.jp.ssrpg.gui.loaders.Loader;
 import one.jp.ssrpg.gui.utils.ShipScreenMenuBar;
 import ship.PlayerShip;
 import one.jp.ssrpg.gui.windows.ShipScreenWindow;
@@ -40,27 +29,17 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 	SpriteBatch batch;
 	Texture img;
 	Texture img2;
-	private Table screen;
-	MapSessionInterface sesh;
-	ShipMapScreen mapScreen;
-
-	GridPoint lastSeenPoint;
-
-	public static int PADDING = 30;
-
-	ShipScreenMenuBar menuBar;
-	ShipScreenWindow shipScreenWindow;
 
 	Stage stage;
-
-	float posX;
-	float posY;
-
-	String selectedMenuItem;
-
+	ShipScreenMenuBar menuBar;
+	ShipScreenWindow shipScreenWindow;
+	MapSessionInterface sesh;
+	ShipMapScreen mapScreen;
+	GridPoint lastSeenPoint;
 
 	public static final int HEIGHT = 400;
 	public static final int WIDTH = 800;
+	public static int PADDING = 30;
 
 	@Override
 	public void create () {
@@ -83,9 +62,6 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 		//img = new Texture("space-03.jpg");
 		img = new Texture("hst_carina_ngc3372_0006.jpg");
 		img2 = new Texture("ship_mock2.png");
-
-		screen = new Table();
-		stage.addActor(screen);
 	}
 
 	private void createShipScreen() {
@@ -94,9 +70,9 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 		sesh.start(playerShip);
 		ArrayList<ArrayList<GridSquare>> mapSegment = sesh.gridMap();
 		lastSeenPoint = getCentrePointOfArrayListOfArrayListOfGridSquares(mapSegment);
-		shipScreenWindow = new ShipScreenWindow(new Skin(Gdx.files.internal("uiskin.json")));
+		shipScreenWindow = new ShipScreenWindow(new Skin(Gdx.files.internal("uiskin.json")), stage);
 		stage.addActor(shipScreenWindow);
-		menuBar = new ShipScreenMenuBar(shipScreenWindow, this);
+		menuBar = new ShipScreenMenuBar(shipScreenWindow);
 		mapScreen = new ShipMapScreen("Ship Map Screen", sesh);
 		mapScreen.drawMap(mapSegment);
 		stage.addActor(mapScreen);
@@ -107,46 +83,6 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 		int y = lists.size();
 		int x = lists.get(0).size();
 		return new GridPoint(x/2,y/2);
-	}
-
-	public void enableScreen(String text) {
-		stage.getActors().get(stage.getActors().indexOf(screen, true)).remove();
-		screen = new Table();
-		screen.setX(40);
-		screen.setY(28);
-		screen.setWidth(720);
-		screen.setHeight(135);
-
-		Pixmap pm1 = new Pixmap(1, 1, Pixmap.Format.RGB565);
-		pm1.setColor(Color.BLACK);
-		pm1.fill();
-
-		screen.setVisible(true);
-		screen.setBackground(new TextureRegionDrawable(new TextureRegion(new Texture(pm1))));
-
-		if (selectedMenuItem != text) {
-			selectedMenuItem = text;
-
-
-			if (text.equals("MAP")) {
-				TextButton optionButton = new TextButton("Map screen!", Styles.menuButtonStyle());
-				screen.add(optionButton);
-			}
-			if (text.equals("SHIP")) {
-				TextButton optionButton = new TextButton("Ship status and overview", Styles.menuButtonStyle());
-				screen.add(optionButton);
-			}
-			if (text.equals("CREW")) {
-				TextButton optionButton = new TextButton("Crew stats screen!", Styles.menuButtonStyle());
-				screen.add(optionButton);
-			}
-			if (text.equals("CARGO")) {
-				TextButton optionButton = new TextButton("Cargo hold", Styles.menuButtonStyle());
-				screen.add(optionButton);
-			}
-			stage.addActor(screen);
-		}
-
 	}
 
 	@Override

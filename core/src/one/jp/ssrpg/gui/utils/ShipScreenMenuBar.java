@@ -19,14 +19,10 @@ public class ShipScreenMenuBar {
 
     private ArrayList<TextButton> buttonIndexer;
     private ShipScreenWindow shipScreenWindow;
-    private GdxGame gdxGame;
 
-    // adding the game variable temporarily to make refactoring possible in two commits.
-    // TODO refactor enableScreen method in GdxGame to ShipScreenWindow so GdxGame is not needed
-    public ShipScreenMenuBar(ShipScreenWindow shipScreenWindow, GdxGame gdxGame) {
+    public ShipScreenMenuBar(ShipScreenWindow shipScreenWindow) {
         buttonIndexer = new ArrayList<TextButton>();
         this.shipScreenWindow = shipScreenWindow;
-        this.gdxGame = gdxGame;
     }
 
     public HorizontalGroup generateMenuBar(ArrayList<String> options) {
@@ -44,9 +40,8 @@ public class ShipScreenMenuBar {
                     }
                     optionButton.setChecked(true);
                     System.out.println(optionButton.getText());
-                    gdxGame.enableScreen(optionButton.getText().toString());
+                    shipScreenWindow.enableScreen(optionButton.getText().toString());
                     shipScreenWindow.changeApplication(optionButton.getText().toString());
-
                 }
             });
 
@@ -57,9 +52,7 @@ public class ShipScreenMenuBar {
         group.setX(GdxGame.WIDTH/2 -(buttonWidths/2) - (GdxGame.PADDING * options.size()));
         group.setY(15);
 
-
         System.out.println("group X " + group.getX());
-
         System.out.println("group Y " + group.getY());
 
         return group;
