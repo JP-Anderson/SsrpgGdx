@@ -31,11 +31,10 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 	Texture img2;
 
 	Stage stage;
-	ShipScreenMenuBar menuBar;
 	ShipScreenWindow shipScreenWindow;
+	ShipScreenMenuBar menuBar;
 	MapSessionInterface sesh;
 	ShipMapScreen mapScreen;
-	GridPoint lastSeenPoint;
 
 	public static final int HEIGHT = 400;
 	public static final int WIDTH = 800;
@@ -69,7 +68,6 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 		sesh = new MapSession();
 		sesh.start(playerShip);
 		ArrayList<ArrayList<GridSquare>> mapSegment = sesh.gridMap();
-		lastSeenPoint = getCentrePointOfArrayListOfArrayListOfGridSquares(mapSegment);
 		shipScreenWindow = new ShipScreenWindow(new Skin(Gdx.files.internal("uiskin.json")), stage);
 		stage.addActor(shipScreenWindow);
 		menuBar = new ShipScreenMenuBar(shipScreenWindow);
