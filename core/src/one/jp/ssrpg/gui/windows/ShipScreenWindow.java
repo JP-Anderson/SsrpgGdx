@@ -21,7 +21,7 @@ import one.jp.ssrpg.gui.Styles;
 public class ShipScreenWindow extends Window {
 
     private Stage stage;
-    private String currentRunningApplication;
+    private String currentRunningApplication = "";
     private Table screen;
 
     public ShipScreenWindow(Skin skin, Stage stage) {
@@ -41,6 +41,18 @@ public class ShipScreenWindow extends Window {
 
     public void enableScreen(String screenName) {
         removePreviousScreenFromStage();
+        if (!currentRunningApplication.equals(screenName)) {
+            createNewScreen();
+            changeScreen(screenName);
+        }
+    }
+
+    private void removePreviousScreenFromStage() {
+        int screenIndexInStage = stage.getActors().indexOf(screen, true);
+        if (screenIndexInStage > -1) stage.getActors().get(stage.getActors().indexOf(screen, true)).remove();
+    }
+
+    private void createNewScreen() {
         screen = new Table();
         screen.setX(40);
         screen.setY(28);
@@ -53,15 +65,6 @@ public class ShipScreenWindow extends Window {
 
         screen.setVisible(true);
         screen.setBackground(new TextureRegionDrawable(new TextureRegion(new Texture(pm1))));
-
-        if (currentRunningApplication != screenName) {
-            changeScreen(screenName);
-        }
-    }
-
-    private void removePreviousScreenFromStage() {
-        int screenIndexInStage = stage.getActors().indexOf(screen, true);
-        if (screenIndexInStage > -1) stage.getActors().get(stage.getActors().indexOf(screen, true)).remove();
     }
 
     private void changeScreen(String screenName) {
