@@ -7,12 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import java.util.ArrayList;
 
-import arch.interfaces.MapSessionInterface;
 import arch.sessions.MapSession;
 import arch.view.ConsoleIOHandler;
-import map.gridsquares.GridSquare;
 import one.jp.ssrpg.gui.utils.ShipScreenMenuBar;
-import one.jp.ssrpg.gui.windows.ShipMapScreen;
 import one.jp.ssrpg.gui.windows.ShipScreenWindow;
 import ship.PlayerShip;
 
@@ -24,12 +21,9 @@ public class MainGameState extends State {
 
     ShipScreenWindow shipScreenWindow;
     ShipScreenMenuBar menuBar;
-    MapSessionInterface sesh;
-    ShipMapScreen mapScreen;
 
     public void render() {
-        if (sesh.changes()) mapScreen.drawMap(sesh.gridMap());
-        //stage.draw();
+        windows.render();
     }
 
     public void dispose() {
@@ -41,20 +35,13 @@ public class MainGameState extends State {
     }
 
     public void createShipScreen() {
-        sesh = new MapSession();
-        sesh.start(generatePlayerShip());
-        ArrayList<ArrayList<GridSquare>> mapSegment = sesh.gridMap();
+        windows.mapSession = new MapSession();
+        windows.mapSession.start(generatePlayerShip());
 
-        shipScreenWindow = new ShipScreenWindow(new Skin(Gdx.files.internal("uiskin.json")), stage);
-        //stage.addActor(shipScreenWindow);
+        shipScreenWindow = new ShipScreenWindow(new Skin(Gdx.files.internal("uiskin.json")), windows);
         windows.addWindow(shipScreenWindow);
 
         menuBar = new ShipScreenMenuBar(shipScreenWindow);
-        mapScreen = new ShipMapScreen("Ship Map Screen", sesh);
-        mapScreen.drawMap(mapSegment);
-        //stage.addActor(mapScreen);
-        windows.addWindow(mapScreen);
-
         ArrayList<String> menuItems = new ArrayList<String>();
         menuItems.add("MAP");
         menuItems.add("SHIP");
@@ -62,14 +49,24 @@ public class MainGameState extends State {
         menuItems.add("CARGO");
         menuItems.add("MODULES");
         menuItems.add("LAND");
-        //stage.addActor(menuBar.generateMenuBar(menuItems));
         windows.addWindow(menuBar.generateMenuBar(menuItems));
-        mapScreen.setY(150);
     }
 
     private PlayerShip generatePlayerShip() {
         return new PlayerShip.PlayerShipBuilder(new ConsoleIOHandler(), "TestShip",12).build();
     }
+
+//    private void displayMapProjection() {
+//        if (sesh == null) {
+//            sesh = new MapSession();
+//            sesh.start(generatePlayerShip());
+//        }
+//        ArrayList<ArrayList<GridSquare>> mapSegment = sesh.gridMap();
+//        mapScreen = new ShipMapScreen("Ship Map Screen", sesh);
+//        mapScreen.drawMap(mapSegment);
+//        windows.addWindow(mapScreen);
+//        windows.mapSession = sesh;
+//    }
 
     public ArrayList<TextButton> menuButtons() {
         return menuBar.getButtons();

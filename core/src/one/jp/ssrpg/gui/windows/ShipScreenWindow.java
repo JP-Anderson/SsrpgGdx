@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import one.jp.ssrpg.gui.Styles;
+import one.jp.ssrpg.gui.utils.WindowManager;
 
 /**
  * Created by Jp on 31/03/2017.
@@ -20,13 +21,13 @@ import one.jp.ssrpg.gui.Styles;
 
 public class ShipScreenWindow extends SsrpgWindow {
 
-    private Stage stage;
+    WindowManager windowManager;
     private String currentRunningApplication = "";
     private Table screen;
 
-    public ShipScreenWindow(Skin skin, Stage stage) {
+    public ShipScreenWindow(Skin skin, WindowManager windowManager) {
         super("", skin);
-        this.stage = stage;
+        this.windowManager = windowManager;
         setPosition(400, 100);
         defaults().space(8);
         row().fill().expandX();
@@ -48,8 +49,9 @@ public class ShipScreenWindow extends SsrpgWindow {
     }
 
     private void removePreviousScreenFromStage() {
-        int screenIndexInStage = stage.getActors().indexOf(screen, true);
-        if (screenIndexInStage > -1) stage.getActors().get(stage.getActors().indexOf(screen, true)).remove();
+        if (windowManager.hasWindow(screen)) {
+            windowManager.removeWindow(screen);
+        }
     }
 
     private void createNewScreen() {
@@ -68,35 +70,32 @@ public class ShipScreenWindow extends SsrpgWindow {
     }
 
     private void changeScreen(String screenName) {
-        currentRunningApplication = screenName;
+        changeApplication(screenName);
 
         if (screenName.equals("MAP")) {
             TextButton optionButton = new TextButton("Map screen!", Styles.menuButtonStyle());
             screen.add(optionButton);
+            windowManager.drawMapWindow();
         }
         if (screenName.equals("SHIP")) {
             TextButton optionButton = new TextButton("Ship status and overview", Styles.menuButtonStyle());
+            windowManager.closeWindow(a -> a instanceof ShipMapScreen);
             screen.add(optionButton);
         }
         if (screenName.equals("CREW")) {
             TextButton optionButton = new TextButton("Crew stats screen!", Styles.menuButtonStyle());
+            windowManager.closeWindow(a -> a instanceof ShipMapScreen);
             screen.add(optionButton);
         }
         if (screenName.equals("CARGO")) {
             TextButton optionButton = new TextButton("Cargo hold", Styles.menuButtonStyle());
+            windowManager.closeWindow(a -> a instanceof ShipMapScreen);
             screen.add(optionButton);
         }
-        stage.addActor(screen);
+        windowManager.moveMenuToTop();
     }
 
-    private void closeMapScreen() {
-        Actor mapScreen = stage.getActors().select(a -> a instanceof ShipMapScreen).iterator().next();
-        if (mapScreen != null) {
-            stage.getActors().removeIndex(stage.getActors().indexOf(mapScreen, true));
-        }
-    }
-
-    public void changeApplication(String applicationToShow) {
+    private void changeApplication(String applicationToShow) {
         currentRunningApplication = applicationToShow;
         Label label = this.getTitleLabel();
         label.setText(applicationToShow);

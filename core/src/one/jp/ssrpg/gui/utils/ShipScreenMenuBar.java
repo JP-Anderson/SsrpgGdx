@@ -41,7 +41,6 @@ public class ShipScreenMenuBar {
                     optionButton.setChecked(true);
                     System.out.println(optionButton.getText());
                     shipScreenWindow.enableScreen(optionButton.getText().toString());
-                    shipScreenWindow.changeApplication(optionButton.getText().toString());
                 }
             });
 
