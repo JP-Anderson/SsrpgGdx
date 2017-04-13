@@ -56,18 +56,6 @@ public class MainGameState extends State {
         return new PlayerShip.PlayerShipBuilder(new ConsoleIOHandler(), "TestShip",12).build();
     }
 
-//    private void displayMapProjection() {
-//        if (sesh == null) {
-//            sesh = new MapSession();
-//            sesh.start(generatePlayerShip());
-//        }
-//        ArrayList<ArrayList<GridSquare>> mapSegment = sesh.gridMap();
-//        mapScreen = new ShipMapScreen("Ship Map Screen", sesh);
-//        mapScreen.drawMap(mapSegment);
-//        windows.addWindow(mapScreen);
-//        windows.mapSession = sesh;
-//    }
-
     public ArrayList<TextButton> menuButtons() {
         return menuBar.getButtons();
     }
