@@ -41,16 +41,20 @@ public class MainGameState extends State {
     }
 
     public void createShipScreen() {
-        PlayerShip playerShip = new PlayerShip.PlayerShipBuilder(new ConsoleIOHandler(), "TestShip",12).build();
         sesh = new MapSession();
-        sesh.start(playerShip);
+        sesh.start(generatePlayerShip());
         ArrayList<ArrayList<GridSquare>> mapSegment = sesh.gridMap();
+
         shipScreenWindow = new ShipScreenWindow(new Skin(Gdx.files.internal("uiskin.json")), stage);
-        stage.addActor(shipScreenWindow);
+        //stage.addActor(shipScreenWindow);
+        windows.addWindow(shipScreenWindow);
+
         menuBar = new ShipScreenMenuBar(shipScreenWindow);
         mapScreen = new ShipMapScreen("Ship Map Screen", sesh);
         mapScreen.drawMap(mapSegment);
-        stage.addActor(mapScreen);
+        //stage.addActor(mapScreen);
+        windows.addWindow(mapScreen);
+
         ArrayList<String> menuItems = new ArrayList<String>();
         menuItems.add("MAP");
         menuItems.add("SHIP");
@@ -58,8 +62,13 @@ public class MainGameState extends State {
         menuItems.add("CARGO");
         menuItems.add("MODULES");
         menuItems.add("LAND");
-        stage.addActor(menuBar.generateMenuBar(menuItems));
+        //stage.addActor(menuBar.generateMenuBar(menuItems));
+        windows.addWindow(menuBar.generateMenuBar(menuItems));
         mapScreen.setY(150);
+    }
+
+    private PlayerShip generatePlayerShip() {
+        return new PlayerShip.PlayerShipBuilder(new ConsoleIOHandler(), "TestShip",12).build();
     }
 
     public ArrayList<TextButton> menuButtons() {

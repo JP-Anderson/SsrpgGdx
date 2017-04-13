@@ -1,11 +1,9 @@
 package one.jp.ssrpg.gui.utils;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 
 import java.util.HashSet;
-
-import one.jp.ssrpg.gui.windows.SsrpgWindow;
 
 /**
  * Created by Jp on 12/04/2017.
@@ -14,25 +12,25 @@ import one.jp.ssrpg.gui.windows.SsrpgWindow;
 public class WindowManager {
 
     private Stage stage;
-    private HashSet<SsrpgWindow> activeWindows;
+    private HashSet<Actor> activeActors;
 
     public WindowManager(Stage stage) {
         this.stage = stage;
-        activeWindows = new HashSet<>();
+        activeActors = new HashSet<>();
     }
 
-    public void addWindow(SsrpgWindow window) {
-        activeWindows.add(window);
+    public void addWindow(Actor window) {
+        activeActors.add(window);
         stage.addActor(window);
     }
 
-    public void removeWindow(SsrpgWindow window) {
-        int indexOfTargetWindow = stage.getActors().indexOf(window, true);
-        if (indexOfTargetWindow > -1) stage.getActors().removeIndex(indexOfTargetWindow);
+    public void removeWindow(Actor window) {
+        int indexOfTargetActor = stage.getActors().indexOf(window, true);
+        if (indexOfTargetActor > -1) stage.getActors().removeIndex(indexOfTargetActor);
     }
 
     public int count() {
-        return activeWindows.size();
+        return activeActors.size();
     }
 
 }
