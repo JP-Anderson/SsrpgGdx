@@ -11,9 +11,11 @@ import one.jp.ssrpg.gui.utils.WindowManager;
 public abstract class State {
 
     WindowManager windows;
+    Stage stage;
 
     public State(Stage stage) {
         windows = new WindowManager(stage);
+        this.stage = stage;
     }
 
 }
