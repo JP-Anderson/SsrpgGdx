@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import arch.interfaces.MapSessionInterface;
 import map.gridsquares.GridSquare;
-import one.jp.ssrpg.gui.utils.ButtonGridDrawer;
+import one.jp.ssrpg.gui.utils.MapGridDrawer;
 
 /**
  * Created by Jp on 01/04/2017.
@@ -34,7 +34,7 @@ public class ShipMapScreen extends SsrpgWindow {
     }
 
     public void drawMap(ArrayList<ArrayList<GridSquare>> mapSegment) {
-        ButtonGridDrawer.drawGrid(this, mapSegment, mapSessionInterface);
+        MapGridDrawer.drawGrid(this, mapSegment, mapSessionInterface);
     }
 
 }
