@@ -4,7 +4,6 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
 import one.jp.ssrpg.GdxGame;
-import one.jp.ssrpg.SsrpgGdxGame;
 
 public class DesktopLauncher {
 
