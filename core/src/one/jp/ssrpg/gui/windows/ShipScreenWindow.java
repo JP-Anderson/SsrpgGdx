@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
+import arch.sessions.TradeSession;
 import one.jp.ssrpg.gui.Styles;
 import one.jp.ssrpg.gui.utils.WindowManager;
 
@@ -71,7 +72,7 @@ public class ShipScreenWindow extends SsrpgWindow {
 
     private void changeScreen(String screenName) {
         changeApplication(screenName);
-
+        windowManager.closeAllWindows();
         if (screenName.equals("MAP")) {
             TextButton optionButton = new TextButton("Map screen!", Styles.menuButtonStyle());
             screen.add(optionButton);
@@ -79,17 +80,15 @@ public class ShipScreenWindow extends SsrpgWindow {
         }
         if (screenName.equals("SHIP")) {
             TextButton optionButton = new TextButton("Ship status and overview", Styles.menuButtonStyle());
-            windowManager.closeWindow(a -> a instanceof ShipMapScreen);
             screen.add(optionButton);
+            windowManager.drawTradeWindow();
         }
         if (screenName.equals("CREW")) {
             TextButton optionButton = new TextButton("Crew stats screen!", Styles.menuButtonStyle());
-            windowManager.closeWindow(a -> a instanceof ShipMapScreen);
             screen.add(optionButton);
         }
         if (screenName.equals("CARGO")) {
             TextButton optionButton = new TextButton("Cargo hold", Styles.menuButtonStyle());
-            windowManager.closeWindow(a -> a instanceof ShipMapScreen);
             screen.add(optionButton);
         }
         windowManager.moveMenuToTop();

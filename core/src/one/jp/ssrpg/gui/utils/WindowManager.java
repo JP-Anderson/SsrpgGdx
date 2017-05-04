@@ -11,8 +11,11 @@ import java.util.HashSet;
 
 import arch.interfaces.MapSessionInterface;
 import arch.sessions.MapSession;
+import arch.sessions.TradeSession;
 import map.gridsquares.GridSquare;
 import one.jp.ssrpg.gui.windows.ShipMapScreen;
+import one.jp.ssrpg.gui.windows.ShipTradeScreen;
+import one.jp.ssrpg.gui.windows.SsrpgWindow;
 
 /**
  * Created by Jp on 12/04/2017.
@@ -46,6 +49,19 @@ public class WindowManager {
         return activeActors.size();
     }
 
+    public void closeAllWindows() {
+        ArrayList<Actor> windows = new ArrayList<>();
+        for (Actor a : activeActors)
+            if (a instanceof SsrpgWindow){
+                windows.add(a);
+                stage.getActors().removeIndex(stage.getActors().indexOf(a, true));
+            }
+
+        for (Actor w : windows) {
+            activeActors.remove(w);
+        }
+    }
+
     public boolean closeWindow(Predicate<Actor> actorPredicate) {
         Actor desiredScreen = stage.getActors().select(actorPredicate).iterator().next();
         if (desiredScreen != null) {
@@ -58,7 +74,7 @@ public class WindowManager {
     public Actor getWindow(Predicate<Actor> actorPredicate) {
         return stage.getActors().select(actorPredicate).iterator().next();
     }
-    
+
     public MapSessionInterface mapSession;
     ShipMapScreen mapScreen;
 
@@ -75,19 +91,17 @@ public class WindowManager {
             if (mapSession.changes()) mapScreen.drawMap(mapSession.gridMap());
     }
 
-    private HorizontalGroup menu;
-
     public void moveMenuToTop() {
-        if (menu == null) searchWindowsForMenu();
-        else menu.toFront();
-    }
-
-    private void searchWindowsForMenu() {
         for (Actor a : activeActors) {
             if (a instanceof HorizontalGroup) {
-                menu = (HorizontalGroup) a;
                 a.toFront();
             }
         }
     }
+
+    public void drawTradeWindow() {
+        ShipTradeScreen trade = new ShipTradeScreen();
+        addWindow(trade);
+    }
+    
 }

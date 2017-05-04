@@ -1,5 +1,6 @@
 package one.jp.ssrpg.gui.windows;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 
@@ -10,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 public abstract class SsrpgWindow extends Window {
 
     public SsrpgWindow(String title, Skin skin) {
-        super(title, skin);
+        super(title, new Skin(Gdx.files.internal("uiskin.json")));
     }
 
 }
