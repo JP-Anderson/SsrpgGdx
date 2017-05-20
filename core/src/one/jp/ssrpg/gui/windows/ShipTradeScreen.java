@@ -18,20 +18,14 @@ import one.jp.ssrpg.gui.Styles;
 
 public class ShipTradeScreen extends SsrpgWindow {
 
-    public static void shipTradeScreen(Table window, TradeSessionInterface tradeSession) {
-        window.add(new TextButton("BUY", Styles.menuButtonStyle()));
-        window.add(new TextButton("SELL", Styles.menuButtonStyle()));
-    }
-
     public ShipTradeScreen() {
         super("", new Skin(Gdx.files.internal("uiskin.json")));
-        //todo: set height and width based on Ship Screen
-        setHeight(200);
-        setWidth(700);
+        setToStandardWindowSize();
         getTitleLabel().setVisible(false);
-        //setMovable(false);
+        setMovable(false);
         setColor(Color.BLACK);
         add(new TextButton("BUY", Styles.menuButtonStyle()));
         add(new TextButton("SELL", Styles.menuButtonStyle()));
     }
+
 }
