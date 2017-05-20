@@ -42,14 +42,9 @@ public class MainGameState extends State {
         windows.addWindow(shipScreenWindow);
 
         menuBar = new ShipScreenMenuBar(shipScreenWindow);
-        ArrayList<String> menuItems = new ArrayList<String>();
-        menuItems.add("MAP");
-        menuItems.add("SHIP");
-        menuItems.add("CREW");
-        menuItems.add("CARGO");
-        menuItems.add("MODULES");
-        menuItems.add("LAND");
-        windows.addWindow(menuBar.generateMenuBar(menuItems));
+        ArrayList<String> optionalMenuItems = new ArrayList<String>();
+        optionalMenuItems.add("LAND");
+        windows.addWindow(menuBar.generateMenuBar(optionalMenuItems));
     }
 
     private PlayerShip generatePlayerShip() {

@@ -28,7 +28,7 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 
 	public static final int HEIGHT = 400;
 	public static final int WIDTH = 800;
-	public static int PADDING = 30;
+	public static int PADDING = 15;
 
 	@Override
 	public void create () {

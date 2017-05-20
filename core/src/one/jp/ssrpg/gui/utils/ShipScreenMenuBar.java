@@ -6,6 +6,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import one.jp.ssrpg.GdxGame;
 import one.jp.ssrpg.gui.Styles;
@@ -25,10 +27,20 @@ public class ShipScreenMenuBar {
         this.shipScreenWindow = shipScreenWindow;
     }
 
-    public HorizontalGroup generateMenuBar(ArrayList<String> options) {
+    // These menu options will appear in the bar at all times.
+    public static final String[] DEFAULT_MENU_OPTIONS = new String[] {
+            "MAP","SHIP","CREW","CARGO","MODULES"};
+
+    public HorizontalGroup generateMenuBar(ArrayList<String> optionalOptions) {
         final HorizontalGroup group = new HorizontalGroup();
         float buttonWidths = 0;
-        for (String menuOption : options) {
+        List<String> menuOptions = new ArrayList<String>(Arrays.asList(DEFAULT_MENU_OPTIONS));
+
+        if (optionalOptions != null && optionalOptions.size() > 0) {
+            menuOptions.addAll(optionalOptions);
+        }
+
+        for (String menuOption : menuOptions) {
             final TextButton optionButton = new TextButton(menuOption, Styles.menuButtonStyle());
             optionButton.pad(GdxGame.PADDING);
             group.addActor(optionButton);
@@ -48,7 +60,7 @@ public class ShipScreenMenuBar {
             buttonWidths += optionButton.getWidth();
         }
 
-        group.setX(GdxGame.WIDTH/2 -(buttonWidths/2) - (GdxGame.PADDING * options.size()));
+        group.setX(GdxGame.WIDTH/2 -(buttonWidths/2) - (GdxGame.PADDING * menuOptions.size()));
         group.setY(15);
 
         System.out.println("group X " + group.getX());
