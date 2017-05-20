@@ -32,10 +32,7 @@ public class ShipScreenWindow extends SsrpgWindow {
         setPosition(400, 100);
         defaults().space(8);
         row().fill().expandX();
-        setX(39);
-        setY(29);
-        setWidth(720);
-        setHeight(135);
+        setToStandardWindowSize();
         setVisible(true);
         setMovable(false);
         setColor(Color.BLACK);

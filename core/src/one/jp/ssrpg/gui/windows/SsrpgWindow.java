@@ -14,4 +14,11 @@ public abstract class SsrpgWindow extends Window {
         super(title, new Skin(Gdx.files.internal("uiskin.json")));
     }
 
+    public void setToStandardWindowSize() {
+        this.setX(40);
+        this.setY(28);
+        this.setWidth(720);
+        this.setHeight(135);
+    }
+
 }
