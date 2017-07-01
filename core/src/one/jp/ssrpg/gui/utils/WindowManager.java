@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import arch.interfaces.MapSessionInterface;
+import arch.sessions.GameStateManager;
 import map.gridsquares.GridSquare;
 import one.jp.ssrpg.gui.windows.ShipScreenWindow;
 import one.jp.ssrpg.gui.windows.map.ShipMapScreen;
@@ -24,9 +25,11 @@ public class WindowManager {
     private Stage stage;
     private HashSet<Actor> activeActors;
     private ShipScreenMenuBar menuBar;
+    private GameStateManager gameStateMananger;
 
-    public WindowManager(Stage stage) {
+    public WindowManager(Stage stage, GameStateManager gsm) {
         this.stage = stage;
+        this.gameStateMananger = gsm;
         activeActors = new HashSet<>();
     }
 

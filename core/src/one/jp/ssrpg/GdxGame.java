@@ -12,11 +12,11 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
-import map.GridPoint;
-import map.gridsquares.GridSquare;
+import arch.sessions.GameStateManager;
+import arch.view.ConsoleIOHandler;
 import one.jp.ssrpg.gui.states.MainGameState;
-
-import java.util.ArrayList;
+import ship.PlayerShip;
+import util.dataload.csv.loaders.MapLoader;
 
 public class GdxGame extends ApplicationAdapter implements InputProcessor {
 	SpriteBatch batch;
@@ -34,7 +34,8 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 	public void create () {
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
-		mainGameState = new MainGameState(stage);
+		GameStateManager gameStateManager = new GameStateManager(generatePlayerShip(), MapLoader.loadMap());
+		mainGameState = new MainGameState(stage, gameStateManager);
 		mainGameState.createShipScreen();
 
 		batch = new SpriteBatch();
@@ -43,10 +44,9 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 		img2 = new Texture("ship_mock2.png");
 	}
 
-	private GridPoint getCentrePointOfArrayListOfArrayListOfGridSquares(ArrayList<ArrayList<GridSquare>> lists) {
-		int y = lists.size();
-		int x = lists.get(0).size();
-		return new GridPoint(x/2,y/2);
+	// This mocks a player ship for now, need to replace this with a GUI wizard for creating a ship
+	private PlayerShip generatePlayerShip() {
+		return new PlayerShip.PlayerShipBuilder(new ConsoleIOHandler(), "TestShip",12).build();
 	}
 
 	@Override
