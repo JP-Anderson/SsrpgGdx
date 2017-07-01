@@ -41,10 +41,7 @@ public class MainGameState extends State {
         shipScreenWindow = new ShipScreenWindow(new Skin(Gdx.files.internal("uiskin.json")), windows);
         windows.addWindow(shipScreenWindow);
 
-        menuBar = new ShipScreenMenuBar(shipScreenWindow);
-        ArrayList<String> optionalMenuItems = new ArrayList<String>();
-        optionalMenuItems.add("LAND");
-        windows.addWindow(menuBar.generateMenuBar(optionalMenuItems));
+        windows.drawMenuBar(shipScreenWindow, null);
     }
 
     private PlayerShip generatePlayerShip() {

@@ -4,17 +4,15 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.utils.Predicate;
-import com.sun.java.swing.plaf.windows.resources.windows;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 
 import arch.interfaces.MapSessionInterface;
-import arch.sessions.MapSession;
-import arch.sessions.TradeSession;
 import map.gridsquares.GridSquare;
-import one.jp.ssrpg.gui.windows.ShipMapScreen;
-import one.jp.ssrpg.gui.windows.ShipTradeScreen;
+import one.jp.ssrpg.gui.windows.ShipScreenWindow;
+import one.jp.ssrpg.gui.windows.map.ShipMapScreen;
+import one.jp.ssrpg.gui.windows.trade.ShipTradeScreen;
 import one.jp.ssrpg.gui.windows.SsrpgWindow;
 
 /**
@@ -25,6 +23,7 @@ public class WindowManager {
 
     private Stage stage;
     private HashSet<Actor> activeActors;
+    private ShipScreenMenuBar menuBar;
 
     public WindowManager(Stage stage) {
         this.stage = stage;
@@ -73,6 +72,11 @@ public class WindowManager {
 
     public Actor getWindow(Predicate<Actor> actorPredicate) {
         return stage.getActors().select(actorPredicate).iterator().next();
+    }
+
+    public void drawMenuBar(ShipScreenWindow topWindow, ArrayList<String> optionalMenuItems) {
+        menuBar = new ShipScreenMenuBar(topWindow);
+        this.addWindow(menuBar.generateMenuBar(optionalMenuItems));
     }
 
     public MapSessionInterface mapSession;
