@@ -1,4 +1,4 @@
-package one.jp.ssrpg.gui.utils;
+package one.jp.ssrpg.gui.windows.map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;

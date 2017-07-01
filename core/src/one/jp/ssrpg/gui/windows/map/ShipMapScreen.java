@@ -1,4 +1,4 @@
-package one.jp.ssrpg.gui.windows;
+package one.jp.ssrpg.gui.windows.map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import arch.interfaces.MapSessionInterface;
 import map.gridsquares.GridSquare;
-import one.jp.ssrpg.gui.utils.MapGridDrawer;
+import one.jp.ssrpg.gui.windows.SsrpgWindow;
 
 /**
  * Created by Jp on 01/04/2017.
