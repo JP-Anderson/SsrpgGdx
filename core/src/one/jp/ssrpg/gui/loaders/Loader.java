@@ -28,7 +28,7 @@ public class Loader {
 
 
         MapSession sesh = new MapSession();
-        sesh.start(playerShip);
+        //sesh.start(playerShip);
 
         ArrayList<ArrayList<GridSquare>> mapSegment = sesh.gridMap();
     }
