@@ -89,6 +89,11 @@ public class ShipScreenWindow extends SsrpgWindow {
             TextButton optionButton = new TextButton("Cargo hold", Styles.menuButtonStyle());
             screen.add(optionButton);
         }
+        if (screenName.equals("TRADE")) {
+            TextButton titleText = new TextButton("Ship status and overview", Styles.menuButtonStyle());
+            screen.add(titleText);
+            windowManager.drawTradeWindow();
+        }
         windowManager.drawMenuBar();
         windowManager.moveMenuToTop();
     }
