@@ -11,10 +11,12 @@ import java.util.HashSet;
 import arch.interfaces.MapSessionInterface;
 import arch.sessions.GameStateManager;
 import map.gridsquares.GridSquare;
+import map.gridsquares.Planet;
 import one.jp.ssrpg.gui.windows.ShipScreenWindow;
 import one.jp.ssrpg.gui.windows.map.ShipMapScreen;
 import one.jp.ssrpg.gui.windows.trade.ShipTradeScreen;
 import one.jp.ssrpg.gui.windows.SsrpgWindow;
+import ship.PlayerShip;
 
 /**
  * Created by Jp on 12/04/2017.
@@ -24,6 +26,7 @@ public class WindowManager {
 
     private Stage stage;
     private HashSet<Actor> activeActors;
+    private ShipScreenWindow mainWindow;
     private ShipScreenMenuBar menuBar;
     private GameStateManager gameStateMananger;
 
@@ -31,6 +34,14 @@ public class WindowManager {
         this.stage = stage;
         this.gameStateMananger = gsm;
         activeActors = new HashSet<>();
+    }
+
+    public void setMainWindow(ShipScreenWindow mainScreenWindow) {
+        mainWindow = mainScreenWindow;
+    }
+
+    public ShipScreenWindow getMainWindow() {
+        return mainWindow;
     }
 
     public void addWindow(Actor window) {
@@ -53,15 +64,20 @@ public class WindowManager {
 
     public void closeAllWindows() {
         ArrayList<Actor> windows = new ArrayList<>();
-        for (Actor a : activeActors)
-            if (a instanceof SsrpgWindow){
+        for (Actor a : activeActors) {
+            if (a instanceof SsrpgWindow) {
                 windows.add(a);
-                stage.getActors().removeIndex(stage.getActors().indexOf(a, true));
+                removeItemFromStage(a);
             }
+        }
 
         for (Actor w : windows) {
             activeActors.remove(w);
         }
+    }
+
+    private void removeItemFromStage(Actor actor) {
+        stage.getActors().removeIndex(stage.getActors().indexOf(actor, true));
     }
 
     public boolean closeWindow(Predicate<Actor> actorPredicate) {
@@ -77,9 +93,32 @@ public class WindowManager {
         return stage.getActors().select(actorPredicate).iterator().next();
     }
 
-    public void drawMenuBar(ShipScreenWindow topWindow, ArrayList<String> optionalMenuItems) {
-        menuBar = new ShipScreenMenuBar(topWindow);
-        this.addWindow(menuBar.generateMenuBar(optionalMenuItems));
+    public void drawMenuBar() {
+        removeMenuBar();
+        determineMenuOptionsToDraw();
+        menuBar = new ShipScreenMenuBar(mainWindow);
+        this.addWindow(menuBar.generateMenuBar(determineMenuOptionsToDraw()));
+    }
+
+    private void removeMenuBar() {
+        HorizontalGroup groupToRemove = null;
+        for (Actor a : activeActors) {
+            if (a instanceof HorizontalGroup) {
+                groupToRemove = (HorizontalGroup) a;
+                removeItemFromStage(a);
+            }
+        }
+        activeActors.remove(groupToRemove);
+        menuBar = null;
+    }
+
+    private ArrayList<String> determineMenuOptionsToDraw() {
+        ArrayList<String> optionalOptions = new ArrayList<>();
+        PlayerShip player = gameStateMananger.getPlayerShipState();
+        if (player.currentLocationIsLandable()) {
+            optionalOptions.add("LAND");
+        }
+        return optionalOptions;
     }
 
     public MapSessionInterface mapSession;

@@ -29,6 +29,7 @@ public class ShipScreenWindow extends SsrpgWindow {
     public ShipScreenWindow(Skin skin, WindowManager windowManager) {
         super("", skin);
         this.windowManager = windowManager;
+        this.windowManager.setMainWindow(this);
         setPosition(400, 100);
         defaults().space(8);
         row().fill().expandX();
@@ -88,6 +89,7 @@ public class ShipScreenWindow extends SsrpgWindow {
             TextButton optionButton = new TextButton("Cargo hold", Styles.menuButtonStyle());
             screen.add(optionButton);
         }
+        windowManager.drawMenuBar();
         windowManager.moveMenuToTop();
     }
 
