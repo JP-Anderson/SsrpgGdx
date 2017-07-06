@@ -115,9 +115,9 @@ public class WindowManager {
     private ArrayList<String> determineMenuOptionsToDraw() {
         ArrayList<String> optionalOptions = new ArrayList<>();
         PlayerShip player = gameStateMananger.getPlayerShipState();
-        if (player.currentLocationIsLandable()) {
-            optionalOptions.add("LAND");
-        }
+        GridSquare playerSquare = player.getLocation();
+        if (playerSquare.isTradeable()) optionalOptions.add("TRADE");
+        if (playerSquare.isLandable()) optionalOptions.add("LAND");
         return optionalOptions;
     }
 
