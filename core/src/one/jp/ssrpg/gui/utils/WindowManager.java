@@ -126,7 +126,7 @@ public class WindowManager {
 
     public void drawMapWindow() {
         ArrayList<ArrayList<GridSquare>> mapSegment = mapSession.gridMap();
-        mapScreen = new ShipMapScreen("Ship Map Screen", mapSession);
+        mapScreen = new ShipMapScreen("Ship Map Screen", mapSession, this);
         mapScreen.drawMap(mapSegment);
         addWindow(mapScreen);
         mapScreen.setY(150);
