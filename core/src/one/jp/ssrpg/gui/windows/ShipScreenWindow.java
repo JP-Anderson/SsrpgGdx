@@ -94,7 +94,7 @@ public class ShipScreenWindow extends SsrpgWindow {
             screen.add(titleText);
             windowManager.drawTradeWindow();
         }
-        windowManager.drawMenuBar();
+        windowManager.drawMenuBar(screenName);
         windowManager.moveMenuToTop();
     }
 

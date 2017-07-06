@@ -93,11 +93,11 @@ public class WindowManager {
         return stage.getActors().select(actorPredicate).iterator().next();
     }
 
-    public void drawMenuBar() {
+    public void drawMenuBar(String selected) {
         removeMenuBar();
         determineMenuOptionsToDraw();
         menuBar = new ShipScreenMenuBar(mainWindow);
-        this.addWindow(menuBar.generateMenuBar(determineMenuOptionsToDraw()));
+        this.addWindow(menuBar.generateMenuBar(selected, determineMenuOptionsToDraw()));
     }
 
     private void removeMenuBar() {

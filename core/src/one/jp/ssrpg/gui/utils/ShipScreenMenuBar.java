@@ -31,7 +31,7 @@ public class ShipScreenMenuBar {
     public static final String[] DEFAULT_MENU_OPTIONS = new String[] {
             "MAP","SHIP","CREW","CARGO","MODULES"};
 
-    public HorizontalGroup generateMenuBar(ArrayList<String> optionalOptions) {
+    public HorizontalGroup generateMenuBar(String selectedOption, ArrayList<String> optionalOptions) {
         final HorizontalGroup group = new HorizontalGroup();
         float buttonWidths = 0;
         List<String> menuOptions = new ArrayList<String>(Arrays.asList(DEFAULT_MENU_OPTIONS));
@@ -45,12 +45,10 @@ public class ShipScreenMenuBar {
             optionButton.pad(GdxGame.PADDING);
             group.addActor(optionButton);
 
+            if (menuOption.equals(selectedOption)) optionButton.setChecked(true);
+
             optionButton.addListener(new ClickListener() {
                 public void clicked(InputEvent event, float x, float y) {
-                    for (TextButton tb : buttonIndexer) {
-                        tb.setChecked(false);
-                    }
-                    optionButton.setChecked(true);
                     System.out.println(optionButton.getText());
                     shipScreenWindow.enableScreen(optionButton.getText().toString());
                 }

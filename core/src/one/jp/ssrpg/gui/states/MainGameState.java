@@ -36,7 +36,7 @@ public class MainGameState extends State {
         windows.mapSession = gameStateManager.spawnMapSession();
         shipScreenWindow = new ShipScreenWindow(new Skin(Gdx.files.internal("uiskin.json")), windows);
         windows.addWindow(shipScreenWindow);
-        windows.drawMenuBar();
+        windows.drawMenuBar("");
     }
 
     public ArrayList<TextButton> menuButtons() {

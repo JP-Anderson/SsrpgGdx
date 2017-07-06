@@ -38,7 +38,7 @@ public class ShipMapScreen extends SsrpgWindow {
 
     public void drawMap(ArrayList<ArrayList<GridSquare>> mapSegment) {
         MapGridDrawer.drawGrid(this, mapSegment, mapSessionInterface);
-        windowManager.drawMenuBar();
+        windowManager.drawMenuBar("MAP");
     }
 
 }
