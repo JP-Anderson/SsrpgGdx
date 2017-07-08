@@ -20,6 +20,7 @@ import map.GridPoint;
 import map.gridsquares.GridSquare;
 import map.gridsquares.OutOfBoundsGridSquare;
 import map.gridsquares.Planet;
+import one.jp.ssrpg.gui.Assets;
 
 /**
  * Created by Jp on 02/04/2017.
@@ -32,7 +33,7 @@ public class MapGridDrawer {
     static final Drawable planetSquareDrawable = new SpriteDrawable(new Sprite(new Texture("grid_square_planet.png")));
     static final Drawable playerDrawable = new SpriteDrawable(new Sprite(new Texture("player_indicator.png")));
 
-    static final Skin s = new Skin(Gdx.files.internal("uiskin.json"));
+    static final Skin s = Assets.skin;
 
     static final int GRID_COLUMN_WIDTH = 53;
     static final int LEFT_BORDER_PADDING = 20;

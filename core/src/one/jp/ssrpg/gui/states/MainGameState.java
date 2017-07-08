@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import java.util.ArrayList;
 
 import arch.sessions.GameStateManager;
+import one.jp.ssrpg.gui.Assets;
 import one.jp.ssrpg.gui.utils.ShipScreenMenuBar;
 import one.jp.ssrpg.gui.windows.ShipScreenWindow;
 
@@ -34,7 +35,7 @@ public class MainGameState extends State {
 
     public void createShipScreen() {
         windows.mapSession = gameStateManager.spawnMapSession();
-        shipScreenWindow = new ShipScreenWindow(new Skin(Gdx.files.internal("uiskin.json")), windows);
+        shipScreenWindow = new ShipScreenWindow(Assets.skin, windows);
         windows.addWindow(shipScreenWindow);
         windows.drawMenuBar("");
     }

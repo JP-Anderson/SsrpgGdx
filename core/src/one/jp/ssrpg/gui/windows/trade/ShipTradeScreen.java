@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import arch.interfaces.TradeSessionInterface;
+import one.jp.ssrpg.gui.Assets;
 import one.jp.ssrpg.gui.Styles;
 import one.jp.ssrpg.gui.windows.SsrpgWindow;
 
@@ -20,7 +21,7 @@ import one.jp.ssrpg.gui.windows.SsrpgWindow;
 public class ShipTradeScreen extends SsrpgWindow {
 
     public ShipTradeScreen() {
-        super("", new Skin(Gdx.files.internal("uiskin.json")));
+        super("", Assets.skin);
         setToStandardWindowSize();
         getTitleLabel().setVisible(false);
         setMovable(false);

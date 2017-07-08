@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import arch.interfaces.MapSessionInterface;
 import map.gridsquares.GridSquare;
+import one.jp.ssrpg.gui.Assets;
 import one.jp.ssrpg.gui.utils.WindowManager;
 import one.jp.ssrpg.gui.windows.SsrpgWindow;
 
@@ -26,7 +27,7 @@ public class ShipMapScreen extends SsrpgWindow {
     private final MapSessionInterface mapSessionInterface;
 
     public ShipMapScreen(String title, MapSessionInterface mapSessionInterface, WindowManager windowManager) {
-        super(title, new Skin(Gdx.files.internal("uiskin.json")));
+        super(title, Assets.skin);
         Texture mapImage = new Texture("mapscreen2.png");
         setBackground(new TextureRegionDrawable(new TextureRegion(mapImage)));
         setHeight(HEIGHT);

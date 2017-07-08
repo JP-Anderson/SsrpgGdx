@@ -14,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
 import java.util.ArrayList;
 
+import one.jp.ssrpg.gui.Assets;
+
 /**
  * Created by Jp on 01/04/2017.
  */
@@ -33,7 +35,7 @@ public class ButtonGrid extends Window {
     }
 
     private ButtonGrid(String title, Window parent) {
-        super(title, new Skin(Gdx.files.internal("uiskin.json")));
+        super(title, Assets.skin);
 
         this.setX(parent.getX());
         this.setY(parent.getY());
